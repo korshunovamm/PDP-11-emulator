@@ -2,24 +2,8 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include "pdp_11.h"
 
-typedef unsigned char byte;
-typedef unsigned int word;
-typedef word Adress;
-
-#define MEMSIZE (64*1024)
-#define ODATA 0177566
-#define OSTAT 0177564
-
-byte mem[MEMSIZE];
-byte trac;
-
-void b_write(Adress adr, byte b);
-byte b_read(Adress adr);
-void w_write(Adress adr, word w);
-word w_read(Adress adr);
-void load_file(const char* filename);
-void mem_dump(Adress start, word n);
 
 void trace(const char* format, ...){
     if(trac == 1 || trac == 2) {
@@ -30,24 +14,26 @@ void trace(const char* format, ...){
     }
 }
 
+byte b_read(Adress adr) {
+    return mem[adr];
+}
+
+void b_write(Adress adr, byte b) {
+    mem[adr]=b;
+    if (adr == ODATA)
+        printf("%c", b);
+}
+
 word w_read(Adress a) {
     word w = ((word)mem[a+1]) << 8;
     //printf("w = %x\n", w);
     w = w | mem[a];
     return w;
 }
-void b_write(Adress adr, byte b) {
-    mem[adr]=b;
-    if (adr == ODATA)
-        printf("%c", b);
-}
-byte b_read(Adress adr) {
-    return mem[adr];
-}
 
 void w_write(Adress adr, word w) {
-    mem[adr] = (byte)(w & 0xFF);
-    mem[adr + 1] = (byte)((w >> 8) & 0xFF);
+    mem[adr] = (byte)(w & 0xFF);                  // w % 256
+    mem[adr + 1] = (byte)((w >> 8) & 0xFF);       // w / 256
     if (adr == ODATA)
         printf("%c", w);
 }
