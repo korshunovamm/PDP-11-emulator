@@ -1,4 +1,4 @@
 CMakeLists.txt
 .gitignore.swp
 draft.c
-./.idea
+.idea
