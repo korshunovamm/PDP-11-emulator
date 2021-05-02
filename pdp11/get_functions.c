@@ -58,13 +58,15 @@ Argument get_mr(word w, int B) {
         case 4:                                           // -(R3)
             if (n_reg == 7 || n_reg == 6 || B == 0) {
                 reg[n_reg] -= 2;
+                res.adr = reg[n_reg];
+                res.val = w_read(res.adr);
             }
             else {
                 reg[n_reg]--;
+                res.adr = reg[n_reg];
+                res.val = b_read(res.adr);
             }
 
-            res.adr = reg[n_reg];
-            res.val = b_read (res.adr);
             trace("-(R%d) ", n_reg);
             break;
 

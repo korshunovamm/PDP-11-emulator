@@ -36,16 +36,16 @@ void run() {
                 if (commands[i].param == HAS_SS) {
                     ss = get_mr(w >> 6, PC.B);
                     dd = get_mr(w, PC.B);
-                    //                    printf("\nss = %o, %o\n", ss.val, ss.a);
-                    //                    printf("dd = %o, %o\n", dd.val, dd.a);
+                    //                    printf("\nss = %o, %o\n", ss.val, ss.adr);
+                    //                    printf("dd = %o, %o\n", dd.val, dd.adr);
                 }
                 if (commands[i].param == HAS_DD) {
                     dd = get_mr(w, PC.B);
-                    //                    printf("\ndd = %o, %o\n", dd.val, dd.a);
+                    //                    printf("\ndd = %o, %o\n", dd.val, dd.adr);
                 }
                 if (commands[i].param == HAS_NN) {
                     nn = get_nn(w);
-                    //                    printf("\nnn = %o, %o\n", nn.val, nn.a);
+                    //                    printf("\nnn = %o, %o\n", nn.val, nn.adr);
                 }
                 if (commands[i].param == HAS_XX) {
                     xx = get_xx(w);
