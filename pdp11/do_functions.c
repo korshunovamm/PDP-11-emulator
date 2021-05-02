@@ -4,12 +4,6 @@
 extern Argument ss, dd, nn;
 extern char xx;
 
-typedef struct Flag {
-    char N;    // = 1, если результат команды <0, иначе 0 (знаковый бит)
-    char Z;    // = 1, если результат команды 0, иначе = 0
-    char V;    // дополнительный 16-й бит, отвечает за переполнение
-    char C;    // отвечает за знаковое переполнение(если после операции из '+'числа получилось '-'число)
-}Flag;
 Flag flag;
 
 void change_flag(struct P_Command PC) {

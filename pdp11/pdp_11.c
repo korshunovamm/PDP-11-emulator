@@ -7,12 +7,15 @@
 
 
 #define SIGN(w, is_byte) (is_byte ? ((w)>>7)&1 : ((w)>>15)&1 )   // вычисляю старший(знаковый) бит для слова или байта
+extern Flag flag;
 
 void trace(const char* format, ...) {
+    if (do_trace == 1 || do_trace == 2) {
         va_list ap;
         va_start(ap, format);
         vprintf(format, ap);
         va_end(ap);
+    }
 }
 
 byte b_read(Adress adr) {
@@ -92,6 +95,10 @@ void print_registers() {
     printf("\n\n");
 }
 
+void print_flags() {
+    trace("N = %d\n Z= %d\n C= %d\n", flag.N, flag.Z, flag.C);
+}
+
 void test_mem() {
     //пишем байт, читаем байт
     byte b0 = 0x0a;
@@ -132,11 +139,22 @@ int main(int argc, char * argv[]) {
     mem[OSTAT] = -1;                              // регистр состояния дисплея
 
     if (argc == 1) {                              // если введен лишь запуск программы без файла
-        printf("Usage: %s initial-core-file.\n", argv[0]);
+        printf("Usage: %s [options] initial-core-file.\n"
+               "\t-t\tshow trace to stderr\n"
+               "\t-T\tshow verbose trace to stderr\n", argv[0]);
         exit(1);
     }
-
-    load_file(argv[1]);
+    else if (!strcmp(argv[1], "-t")) {
+        do_trace = 1;
+        load_file(argv[2]);
+    }
+    else if (!strcmp(argv[1], "-T")) {
+        do_trace = 2;
+        load_file(argv[2]);
+    }
+    else {
+        load_file(argv[1]);
+    }
 
     run();
 

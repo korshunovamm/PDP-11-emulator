@@ -5,7 +5,6 @@ extern Argument ss, dd, nn;
 extern char xx;
 extern Command commands[];
 
-
 P_Command create_command(word w) {
     P_Command res;
     res.B = (w >> 15);
@@ -54,7 +53,9 @@ void run() {
                 }
                 commands[i].do_func(PC);
             }
-        printf("\n");
-
+        if (do_trace == 2) {
+            print_registers();
+            print_flags();
+        }
     }
 }

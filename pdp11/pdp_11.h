@@ -9,6 +9,13 @@ typedef struct Argument {
     word space;  // где: =REG - в регистре, иначе по адресу
 }Argument;
 
+typedef struct Flag {
+    char N;    // = 1, если результат команды <0, иначе 0 (знаковый бит)
+    char Z;    // = 1, если результат команды 0, иначе = 0
+    char V;    // дополнительный 16-й бит, отвечает за переполнение
+    char C;    // отвечает за знаковое переполнение(если после операции из '+'числа получилось '-'число)
+}Flag;
+
 typedef struct P_Command {
     int B;        // старший бит в слове
     word r1;      // регистр ss
@@ -38,7 +45,9 @@ typedef struct Command {
 #define MEM 1
 
 byte mem[MEMSIZE];
-word reg[8];                        // R0, R1 ... R7, R7 = pc
+word reg[8];             // R0, R1 ... R7, R7 = pc
+char do_trace;           // -t -T трассировка
+
 
 void b_write(Adress adr, byte b);
 byte b_read(Adress adr);
@@ -48,6 +57,7 @@ void trace(const char* format, ...);
 void load_file(const char* filename);
 void mem_dump(Adress start, word n);
 void print_registers();
+void print_flags();
 word byte_to_word(byte b);
 Argument get_nn(word w);
 Argument get_mr(word w, int B);
