@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include "pdp_11.h"
 
-extern Argument ss, dd, nn;
-extern char xx;
 extern Command commands[];
+Argument ss, dd, nn;
+char xx;
 
 P_Command create_command(word w) {
     P_Command res;
@@ -22,6 +22,7 @@ void run() {
     word w;
 
     while(1) {
+        P_Command PC;
         w = w_read(pc);
         //printf("%06o : %06o ", pc, w);          // отладочная печать
         printf("%06o : ", pc);             // нормальная печать
