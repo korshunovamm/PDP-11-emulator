@@ -1,6 +1,0 @@
-pdp11_tests/
-../pdp11em-linux/
-CMakeLists.txt
-pdp11em-linux.zip
-.gitignore.swp
-draft.c
