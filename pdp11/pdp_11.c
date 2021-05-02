@@ -10,7 +10,7 @@
 extern Flag flag;
 
 void trace(const char* format, ...) {
-    if (do_trace == 1 || do_trace == 2) {
+    if (do_trace == 1 || do_trace == 2) {          // do_trace:  == 1 (-t) ; == 2 (-T)
         va_list ap;
         va_start(ap, format);
         vprintf(format, ap);
@@ -59,10 +59,10 @@ word byte_to_word(byte b) {
 }
 
 void mem_dump(Adress start, word n) {
-    printf("----------------mem_dump---------------\n");
+    printf("-------------------------mem_dump-------------------------\n");
     for (int i = 0; i <= n; i += 2)
         printf("%06o : %06o\n", start + i , w_read(start + i));
-    printf("----------------mem_dump---------------\n");
+    printf("-------------------------mem_dump-------------------------\n");
 }
 
 void load_file(const char * filename) {
@@ -87,16 +87,17 @@ void load_file(const char * filename) {
 }
 
 void print_registers() {
+    printf("\n");
     for(int i = 0; i < 8; i += 2)
         printf("r%d = %06o   ", i, reg[i]);
     printf("\n");
     for(int i = 1; i < 8; i += 2)
         printf("r%d = %06o   ", i, reg[i]);
-    printf("\n\n");
+    printf("\n");
 }
 
 void print_flags() {
-    trace("N = %d\n Z= %d\n C= %d\n", flag.N, flag.Z, flag.C);
+    trace("\tN = %d\n\tZ= %d\n\tC= %d\n\n\n", flag.N, flag.Z, flag.C);
 }
 
 void test_mem() {
@@ -139,9 +140,9 @@ int main(int argc, char * argv[]) {
     mem[OSTAT] = -1;                              // регистр состояния дисплея
 
     if (argc == 1) {                              // если введен лишь запуск программы без файла
-        printf("Usage: %s [options] initial-core-file.\n"
+        printf("Usage: ./pdp [options] initial-core-file.\n"
                "\t-t\tshow trace to stderr\n"
-               "\t-T\tshow verbose trace to stderr\n", argv[0]);
+               "\t-T\tshow verbose trace to stderr\n");
         exit(1);
     }
     else if (!strcmp(argv[1], "-t")) {

@@ -14,15 +14,14 @@ P_Command create_command(word w) {
 }
 
 void run() {
-    extern P_Command PC;
-    extern int size;
+    extern int size_of_commands;
+    P_Command PC;
 
     mem[OSTAT] |= 128;
     pc = 01000;
     word w;
 
     while(1) {
-        P_Command PC;
         w = w_read(pc);
         //printf("%06o : %06o ", pc, w);          // отладочная печать
         printf("%06o : ", pc);             // нормальная печать
@@ -30,7 +29,7 @@ void run() {
         pc += 2;
         PC = create_command(w);
 
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < size_of_commands; i++)
             if ((commands[i].mask & w) == commands[i].opcode) {
                 printf("%s    ", commands[i].name);
 
@@ -53,8 +52,9 @@ void run() {
                     //                    printf("\nxx = %o\n", xx.val);
                 }
                 commands[i].do_func(PC);
+                printf("\n");
             }
-        if (do_trace == 2) {
+        if (do_trace == 2) {                  // -T -большая трассировка
             print_registers();
             print_flags();
         }

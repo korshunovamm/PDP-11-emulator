@@ -19,6 +19,7 @@ void change_flag(struct P_Command PC) {
 
 
 void do_halt(P_Command PC) {
+    PC = PC;
     trace("\n\n------------------------THE END!!!------------------------\n");
     print_registers();
     exit(0);
@@ -45,12 +46,15 @@ void do_add(P_Command PC) {                       // сложить два чи�
 }
 
 void do_sob(P_Command PC) {                       // Subtract One and Branch
-    if (--reg[nn.adr] != 0)                       // если содержимое регистра при уменьшении на один != 0, то
+    if (--reg[nn.adr] != 0) {                     // если содержимое регистра при уменьшении на один != 0, то
         pc -= 2 * nn.val;                         // идити по адресу со сдвигом назад в nn
+    }
+    PC = PC;
 }
 
 void do_br(P_Command PC) {                        // Branch
     pc += 2 * xx;                                 // PC=PC+2*XX
+    PC = PC;
 }
 
 void do_beq(P_Command PC) {                       // Branch if Equal
@@ -133,4 +137,4 @@ const Command commands[] = {
         {0177770, 0000200, "rts",  do_rts,  HAS_DD},
         {0xFFFF,  0,       "halt", do_halt, NO_PARAM},
 };
-int size = sizeof(commands)/sizeof(Command);
+int size_of_commands = sizeof(commands)/sizeof(Command);

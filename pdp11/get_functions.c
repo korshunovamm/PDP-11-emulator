@@ -18,16 +18,16 @@ Argument get_mr(word w, int B) {
             break;
 
         case 1:                                           // (R3)
-            res.adr = n_reg;
+            res.adr = reg[n_reg];
             res.val = B ? b_read(res.adr) : w_read(res.adr);//читаю байт/слово в зависимости от значения знакового бита
             trace("(R%d) ", n_reg);
             break;
 
         case 2:                                           // (R3)+  или  #3
-            res.adr = n_reg;
+            res.adr = reg[n_reg];
             res.val = B ? b_read(res.adr) : w_read(res.adr);
 
-            if (n_reg == 7 || n_reg == 6 || B == 0) {     // если слово или если значение находится R6/R7
+            if (n_reg == 7 || n_reg == 6 || B == 0) {     // если слово или если значение находится в R6/R7
                 reg[n_reg] += 2;
             }
             else {
@@ -87,7 +87,7 @@ Argument get_mr(word w, int B) {
             break;
 
         default:
-            fprintf(stderr, "MODE %o NOT IMPLEMENTED YET!\n", mode);
+            fprintf(stderr, "MODE %o NOT IMPLEMENTED YET!", mode);
             exit(1);
     }
     return res;
@@ -98,7 +98,7 @@ Argument get_nn(word w) {                                // 077RNN
     Argument res;
     res.adr = (w >> 6) & 07;                             // R - номер регистра
     res.val = w & 077;                                   // NN - на столько слов сдвиг назад в программе
-    trace("R%d, %o", reg[res.adr], pc - 2 * res.val);
+    trace("R%d, %o\n", reg[res.adr], pc - 2 * res.val);
     return res;
 }
 
@@ -106,6 +106,6 @@ char get_xx(word w) {
     char res;
     res = (char)(w & 0xFF);
     unsigned int x = pc + 2 * res;
-    trace("%06o", x);
+    trace("%06o\n", x);
     return res;
 }
