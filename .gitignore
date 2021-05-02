@@ -1,8 +1,8 @@
 CMakeLists.txt
 .gitignore.swp
-draft.c
-draft1.c
-draft2.c
+drafts/
 .idea
 pdp11/.idea
 pdp.out
+cmake-build-debug/
+.pdp.swp
