@@ -4,7 +4,10 @@ directory="tests/"
 if [ "$1" = "-t" ] || [ "$1" = "-T" ] 
 then
 	./pdp.out $1 "$directory$2"
-else 
+elif [ -z "$1" ]
+then
+	./pdp.out 
+else
 	./pdp.out "$directory$1"
 fi
 
