@@ -57,7 +57,6 @@ void load_file(const char* filename);
 void mem_dump(Adress start, word n);
 void print_registers();
 void print_flags();
-word byte_to_word(byte b);
 Argument get_nn(word w);
 Argument get_mr(word w, int B);
 char get_xx(word w);
