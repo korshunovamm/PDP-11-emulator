@@ -138,7 +138,7 @@ void do_jsr(P_Command PC) {                       // Jump to Subroutine
 void do_rts(P_Command PC) {                       // Return from Subroutine
     pc = reg[PC.r2];
     sp += 2;
-    reg[PC.r2] = w_read(reg[6]);
+    reg[PC.r2] = w_read(sp);
 }
 
 

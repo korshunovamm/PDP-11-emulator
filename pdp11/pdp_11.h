@@ -41,7 +41,7 @@ typedef struct Command {
 #define HAS_DD		2
 #define HAS_NN		4
 #define HAS_XX		8
-#define REG 0
+#define REG         0
 
 byte mem[MEMSIZE];
 word reg[8];                        // R0, R1 ... R7, R7 = pc

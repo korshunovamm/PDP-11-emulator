@@ -150,7 +150,7 @@ int main(int argc, char * argv[]) {
     }
 
 //    load_file(
-//            "/home/mariia/2сем/C/Coursework/tests/01_sum/01_sum.pdp.o"
+//            "/home/mariia/2сем/C/Coursework/tests/08_hello/08_hello.pdp.o"
 //            );
 //    do_trace = 2;
     run();
