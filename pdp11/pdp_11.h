@@ -12,8 +12,8 @@ typedef struct Argument {
 typedef struct Flag {
     char N;    // = 1, если результат команды <0, иначе 0 (знаковый бит)
     char Z;    // = 1, если результат команды 0, иначе = 0
-    char V;    // дополнительный 16-й бит, отвечает за переполнение
     char C;    // отвечает за знаковое переполнение(если после операции из '+'числа получилось '-'число)
+//  char V;    // дополнительный 16-й бит, отвечает за переполнение
 }Flag;
 
 typedef struct P_Command {
@@ -32,21 +32,20 @@ typedef struct Command {
 
 
 #define MEMSIZE (64*1024)
-#define ODATA 0177566               // регистр данных дисплея
-#define OSTAT 0177564               // регистр состояния дисплея
+#define ODATA 0177566               // регистр данных дисплея (адрес)
+#define OSTAT 0177564               // регистр состояния дисплея (адрес)
 #define pc reg[7]                   // R7 = pc
-#define sp reg[6]
+#define sp reg[6]                   // R6 = sp
 #define NO_PARAM	0
 #define HAS_SS		1
 #define HAS_DD		2
 #define HAS_NN		4
 #define HAS_XX		8
 #define REG 0
-#define MEM 1
 
 byte mem[MEMSIZE];
-word reg[8];             // R0, R1 ... R7, R7 = pc
-char do_trace;           // -t -T трассировка
+word reg[8];                        // R0, R1 ... R7, R7 = pc
+char do_trace;                      // -t -T трассировка
 
 
 void b_write(Adress adr, byte b);

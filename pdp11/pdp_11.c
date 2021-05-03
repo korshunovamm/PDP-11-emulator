@@ -23,10 +23,6 @@ byte b_read(Adress adr) {
 }
 
 void b_write(Adress adr, byte b) {
-    if(adr == ODATA) {
-        fprintf(stderr, "%c", b);
-    }
-    else
         mem[adr] = b;
 }
 
@@ -37,10 +33,6 @@ word w_read(Adress a) {
 }
 
 void w_write(Adress adr, word w) {
-    if(adr == ODATA) {
-        fprintf(stderr, "%c", w);
-        return;
-    }
     mem[adr] = (byte)(w & 0xFF);                  // w % 256
     mem[adr + 1] = (byte)((w >> 8) & 0xFF);       // w / 256
 }
@@ -157,6 +149,10 @@ int main(int argc, char * argv[]) {
         load_file(argv[1]);
     }
 
+//    load_file(
+//            "/home/mariia/2сем/C/Coursework/tests/01_sum/01_sum.pdp.o"
+//            );
+//    do_trace = 2;
     run();
 
     return 0;

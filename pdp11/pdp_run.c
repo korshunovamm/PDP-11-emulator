@@ -17,7 +17,7 @@ void run() {
     extern int size_of_commands;
     P_Command PC;
 
-    mem[OSTAT] |= 128;
+    mem[OSTAT] |= 128;                           // старший бит в младшем байте
     pc = 01000;
     word w;
 

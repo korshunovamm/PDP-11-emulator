@@ -4,17 +4,29 @@
 extern Argument ss, dd, nn;
 extern char xx;
 
-Flag flag;
+Flag flag = {0, 0, 0};
 
-void change_flag(struct P_Command PC) {
-
+void change_flag_N(P_Command PC) {
     if (PC.B) {
         flag.N = (char)((dd.res >> 7) & 1);           // если байт
     }
     else {
         flag.N = (char)((dd.res >> 15) & 1);          // если слово
     }
+}
+
+void change_flag_Z(P_Command PC) {
     flag.Z = (char)(dd.res == 0);
+    PC = PC;
+}
+
+void change_flag_C(P_Command PC) {
+    if (PC.B) {
+        flag.C = (0xFF - ss.val - dd.val < 0) ? 1 : 0; // если байт
+    }
+    else {
+        flag.C = (0xFFFF - ss.val - dd.val < 0) ? 1 : 0; // если слово
+    }
 }
 
 
@@ -31,7 +43,20 @@ void do_mov(P_Command PC) {                       // положить число
         reg[dd.adr]= dd.res;                      // значение записываю в рeгистр,
     else
         w_write(dd.adr, dd.res);                  // иначе по адресу
-    change_flag(PC);
+
+    change_flag_N(PC);
+    change_flag_Z(PC);
+}
+
+void do_movb(P_Command PC) {                      // Move byte
+    dd.res = ss.val;
+    if (dd.space == REG)                          // если щначение в регистре
+        reg[dd.adr] = byte_to_word(dd.res);       // записываю в регистр
+    else
+        b_write(dd.adr, (byte)dd.res);            // иначе в память
+
+    change_flag_N(PC);
+    change_flag_Z(PC);
 }
 
 void do_add(P_Command PC) {                       // сложить два числа и результат записать по адресу последнего
@@ -42,7 +67,10 @@ void do_add(P_Command PC) {                       // сложить два чи�
     else {
         w_write(dd.adr, dd.res);                  // иначе по адресу
     }
-    change_flag(PC);
+
+    change_flag_N(PC);
+    change_flag_Z(PC);
+    change_flag_C(PC);
 }
 
 void do_sob(P_Command PC) {                       // Subtract One and Branch
@@ -62,13 +90,9 @@ void do_beq(P_Command PC) {                       // Branch if Equal
         do_br(PC);
 }
 
-void do_movb(P_Command PC) {                      // Move byte
-    dd.res = ss.val;
-    if (dd.space == REG)
-        reg[dd.adr] = byte_to_word(dd.res);
-    else
-        b_write(dd.adr, (byte)dd.res);
-    change_flag(PC);
+void do_bpl(P_Command PC) {                       // Branch if Plus
+    if(flag.N == 0)
+        do_br(PC);
 }
 
 void do_clr(P_Command PC) {
@@ -78,29 +102,26 @@ void do_clr(P_Command PC) {
     else
         w_write(dd.adr, dd.res);
 
-    flag.N = 0;
     flag.Z = 1;
-    change_flag(PC);
 }
 
 void do_tstb(P_Command PC) {
     dd.res = dd.val;
-    change_flag(PC);
+    change_flag_N(PC);
+    change_flag_Z(PC);
 }
 
 void do_tst(P_Command PC) {
     dd.res = dd.val;
-    change_flag(PC);
-}
-
-void do_bpl(P_Command PC) {                       // Branch if Plus
-    if(flag.N == 0)
-        do_br(PC);
+    change_flag_N(PC);
+    change_flag_Z(PC);
 }
 
 void do_dec(P_Command PC) {                       // Decrement
     dd.val--;
-    change_flag(PC);
+    change_flag_N(PC);
+    change_flag_Z(PC);
+
     if (dd.space == REG)
         reg[dd.adr] = dd.val;
     else

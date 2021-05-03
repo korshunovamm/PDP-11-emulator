@@ -14,7 +14,7 @@ Argument get_mr(word w, int B) {
             res.adr = n_reg;                             // номер регистра
             res.val = reg[n_reg];                        // значение в регистре
             trace("R%o ", n_reg);
-            res.space = REG;                             //
+            res.space = REG;                             // находится в регистре
             break;
 
         case 1:                                           // (R3)
@@ -104,10 +104,10 @@ Argument get_nn(word w) {                                // 077RNN
     return res;
 }
 
-char get_xx(word w) {
+char get_xx(word w) {                                    // 0010XX
     char res;
-    res = (char)(w & 0xFF);
-    unsigned int x = pc + 2 * res;
+    res = (char)(w & 0xFF);                              // XX
+    unsigned int x = pc + 2 * res;                       // адрес сдвигается на XX слов
     trace("%06o\n", x);
     return res;
 }
