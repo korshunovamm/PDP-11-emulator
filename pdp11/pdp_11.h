@@ -60,5 +60,6 @@ void print_flags();
 Argument get_nn(word w);
 Argument get_mr(word w, int B);
 char get_xx(word w);
+word byte_to_word(byte b);
 void run();
 

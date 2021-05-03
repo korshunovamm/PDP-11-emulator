@@ -6,6 +6,7 @@
 #include "pdp_11.h"
 
 
+#define SIGN(w, is_byte) (is_byte ? ((w)>>7)&1 : ((w)>>15)&1 )   // вычисляю старший(знаковый) бит для слова или байта
 extern Flag flag;
 
 void trace(const char* format, ...) {
@@ -15,6 +16,18 @@ void trace(const char* format, ...) {
         vprintf(format, ap);
         va_end(ap);
     }
+}
+
+word byte_to_word(byte b) {
+    word w;
+    if (SIGN(b, 1) == 0) {       // для положительного числа
+        w = 0;                          // 0000000000000000
+        w |= b;
+    } else {                             // для отрицательного числа
+        w = ~0xFF;                     // 1111111100000000
+        w |= b;
+    }
+    return w;
 }
 
 byte b_read(Adress adr) {
@@ -117,28 +130,28 @@ void test_mem() {
 int main(int argc, char * argv[]) {
     mem[OSTAT] = -1;                              // регистр состояния дисплея
 
-    if (argc == 1) {                              // если введен лишь запуск программы без файла
-        printf("Usage: ./pdp [options] initial-core-file.\n"
-               "\t-t\tshow trace to stderr\n"
-               "\t-T\tshow verbose trace to stderr\n");
-        exit(1);
-    }
-    else if (!strcmp(argv[1], "-t")) {
-        do_trace = 1;
-        load_file(argv[2]);
-    }
-    else if (!strcmp(argv[1], "-T")) {
-        do_trace = 2;
-        load_file(argv[2]);
-    }
-    else {
-        load_file(argv[1]);
-    }
+//    if (argc == 1) {                              // если введен лишь запуск программы без файла
+//        printf("Usage: ./pdp [options] initial-core-file.\n"
+//               "\t-t\tshow trace to stderr\n"
+//               "\t-T\tshow verbose trace to stderr\n");
+//        exit(1);
+//    }
+//    else if (!strcmp(argv[1], "-t")) {
+//        do_trace = 1;
+//        load_file(argv[2]);
+//    }
+//    else if (!strcmp(argv[1], "-T")) {
+//        do_trace = 2;
+//        load_file(argv[2]);
+//    }
+//    else {
+//        load_file(argv[1]);
+//    }
 
-//    load_file(
-//            "/home/mariia/2сем/C/Coursework/tests/10_jsr_rts/10_jsr_rts.pdp.o"
-//            );
-//    do_trace = 2;
+    load_file(
+            "/home/mariia/2сем/C/Coursework/tests/03_arr0_byte/03_arr0_byte.pdp.o"
+            );
+    do_trace = 2;
     run();
 
     return 0;

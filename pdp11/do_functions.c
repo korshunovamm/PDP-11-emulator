@@ -50,12 +50,10 @@ void do_mov(P_Command PC) {                       // положить число
 
 void do_movb(P_Command PC) {                      // Move byte
     dd.res = ss.val;
-    if (dd.space == REG)                          // если значение в регистре
-        reg[dd.adr] = dd.res;                     // записываю в регистр
-    else if (PC.B)                                // если байт
-        b_write(dd.adr, (byte)dd.res);            // записываю в память
-    else                                          // если слово
-        w_write(dd.adr, dd.res);                  // записываю в память
+    if (dd.space == REG)                          // если щначение в регистре
+        reg[dd.adr] = byte_to_word(dd.res);       // записываю в регистр
+    else
+        b_write(dd.adr, (byte)dd.res);            // иначе в память
 
     change_flag_N(PC);
     change_flag_Z(PC);
