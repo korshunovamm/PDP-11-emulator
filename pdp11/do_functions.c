@@ -50,7 +50,7 @@ void do_mov(P_Command PC) {                       // положить число
 
 void do_movb(P_Command PC) {                      // Move byte
     dd.res = ss.val;
-    if (dd.space != REG)                          // если значение в регистре
+    if (dd.space == REG)                          // если значение в регистре
         reg[dd.adr] = dd.res;                     // записываю в регистр
     else if (PC.B)                                // если байт
         b_write(dd.adr, (byte)dd.res);            // записываю в память

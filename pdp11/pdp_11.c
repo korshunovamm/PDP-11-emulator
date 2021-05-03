@@ -136,7 +136,7 @@ int main(int argc, char * argv[]) {
     }
 
 //    load_file(
-//            "/home/mariia/2сем/C/Coursework/tests/08_hello/08_hello.pdp.o"
+//            "/home/mariia/2сем/C/Coursework/tests/10_jsr_rts/10_jsr_rts.pdp.o"
 //            );
 //    do_trace = 2;
     run();
