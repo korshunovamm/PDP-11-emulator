@@ -18,9 +18,7 @@ Argument get_mr(word w, int B) {
 
         case 1:                                           // (R3)
             res.adr = reg[n_reg];
- //           printf("\n res.adr %06o ", res.adr);
             res.val = B ? b_read(res.adr) : w_read(res.adr);//читаю байт/слово в зависимости от значения знакового бита
-//            printf("res.val %06o \n", res.val);
             trace("(R%d) ", n_reg);
             res.space = MEM;                             // находится в памяти
             break;

@@ -39,7 +39,7 @@ void do_halt(P_Command PC) {
 }
 
 void do_mov(P_Command PC) {                       // положить число по адресу
-    printf("\n\nmooooov %06o\n\n", ss.val);
+    //printf("\n\nmooooov %06o\n\n", ss.val);
     dd.res = ss.val;
     if(dd.space == REG)                           // если мода равна 0, то
         reg[dd.adr]= dd.res;                      // значение записываю в рeгистр,
@@ -63,14 +63,14 @@ void do_movb(P_Command PC) {                      // Move byte
 
 void do_add(P_Command PC) {                       // сложить два числа и результат записать по адресу последнего
     dd.res = dd.val + ss.val;
- //   printf("\nadddddd %06o + %06o = %06o\n", ss.val, dd.val, dd.res);
+    //   printf("\nadddddd %06o + %06o = %06o\n", ss.val, dd.val, dd.res);
     if (dd.space == REG) {                        // если мода равна 0, то
         reg[dd.adr] = dd.res;                     // значение записываю в рeгистр,
- //       printf("\nreg[dd.adr] %06o \n", reg[dd.adr]);
+    //       printf("\nreg[dd.adr] %06o \n", reg[dd.adr]);
     }
     else {
         w_write(dd.adr, dd.res);                  // иначе по адресу
- //       printf("\nw_write %06o \n", w_read(dd.adr) );
+        //       printf("\nw_write %06o \n", w_read(dd.adr) );
     }
 
     change_flag_N(PC);
