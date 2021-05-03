@@ -24,7 +24,7 @@ word byte_to_word(byte b) {
         w = 0;                          // 0000000000000000
         w |= b;
     } else {                             // для отрицательного числа
-        w = ~0xFF;                     // 1111111100000000
+        w = ~0xFF;                       // 1111111100000000
         w |= b;
     }
     return w;
@@ -45,8 +45,8 @@ word w_read(Adress adr) {
 }
 
 void w_write(Adress adr, word w) {
-    mem[adr] = (w & 0xFF);                  // w % 256
-    mem[adr + 1] = ((w >> 8) & 0xFF);       // w / 256
+    mem[adr] = (byte)(w & 0xFF);                  // w % 256
+    mem[adr + 1] = (byte)((w >> 8) & 0xFF);       // w / 256
 }
 
 void mem_dump(Adress start, word n) {
@@ -149,7 +149,7 @@ int main(int argc, char * argv[]) {
 //    }
 
     load_file(
-            "/home/mariia/2сем/C/Coursework/tests/03_arr0_byte/03_arr0_byte.pdp.o"
+            "/home/mariia/2сем/C/Coursework/tests/10_jsr_rts/10_jsr_rts.pdp.o"
             );
     do_trace = 2;
     run();

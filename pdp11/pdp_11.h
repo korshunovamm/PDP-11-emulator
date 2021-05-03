@@ -6,7 +6,7 @@ typedef struct Argument {
     word val;    // значение аргумента - что
     Adress adr;  // адрес аргумента(номер регистра) - куда
     word res;    // результат
-    word space;  // где: =REG - в регистре, иначе по адресу
+    word space;  // где: =REG - в регистре, = MEM - в памяти
 }Argument;
 
 typedef struct Flag {
@@ -42,6 +42,8 @@ typedef struct Command {
 #define HAS_NN		4
 #define HAS_XX		8
 #define REG         0
+#define MEM         3
+
 
 byte mem[MEMSIZE];
 word reg[8];                        // R0, R1 ... R7, R7 = pc

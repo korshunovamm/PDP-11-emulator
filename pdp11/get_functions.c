@@ -18,8 +18,11 @@ Argument get_mr(word w, int B) {
 
         case 1:                                           // (R3)
             res.adr = reg[n_reg];
+ //           printf("\n res.adr %06o ", res.adr);
             res.val = B ? b_read(res.adr) : w_read(res.adr);//читаю байт/слово в зависимости от значения знакового бита
+//            printf("res.val %06o \n", res.val);
             trace("(R%d) ", n_reg);
+            res.space = MEM;                             // находится в памяти
             break;
 
         case 2:                                           // (R3)+  или  #3
@@ -39,6 +42,7 @@ Argument get_mr(word w, int B) {
             else {
                 trace("(R%o)+ ", n_reg);
             }
+            res.space = MEM;                             // находится в памяти
             break;
 
         case 3:                                           // @(R3)+  или  @#3
@@ -52,6 +56,7 @@ Argument get_mr(word w, int B) {
             else {
                 trace("@(R%o)+", n_reg);           // @(R3)+
             }
+            res.space = MEM;                             // находится в памяти
             break;
 
         case 4:                                           // -(R3)
@@ -67,6 +72,7 @@ Argument get_mr(word w, int B) {
             }
 
             trace("-(R%d) ", n_reg);
+            res.space = MEM;                             // находится в памяти
             break;
 
         case 5:                                           // @-(R3)
@@ -74,6 +80,7 @@ Argument get_mr(word w, int B) {
             reg[n_reg] -= 2;
             res.adr = w_read(reg[n_reg]);                 // регистр содержит адрес операнда
             res.val = w_read(res.adr);
+            res.space = MEM;                             // находится в памяти
             break;
 
         case 6:                                           // nn - константа
@@ -84,6 +91,7 @@ Argument get_mr(word w, int B) {
             else
                 trace("%o(r%d) ", w_read(pc), n_reg);
             pc += 2;
+            res.space = MEM;                             // находится в памяти
             break;
 
         default:
