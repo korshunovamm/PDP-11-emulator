@@ -1,0 +1,13 @@
+#!/bin/bash
+gcc -Wall -Wextra -g ./pdp11/*.c -o vgpdp.out
+
+if [ "$1" = "-t" ] || [ "$1" = "-T" ]
+then
+        valgrind --leak-check=full ./vgpdp.out $1 "$2"
+elif [ -z "$1" ]
+then
+        valgrind --leak-check=full ./vgpdp.out
+else
+        valgrind --leak-check=full ./vgpdp.out "$1"
+fi
+
