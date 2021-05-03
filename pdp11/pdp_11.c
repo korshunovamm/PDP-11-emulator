@@ -6,7 +6,6 @@
 #include "pdp_11.h"
 
 
-#define SIGN(w, is_byte) (is_byte ? ((w)>>7)&1 : ((w)>>15)&1 )   // вычисляю старший(знаковый) бит для слова или байта
 extern Flag flag;
 
 void trace(const char* format, ...) {
@@ -26,28 +25,15 @@ void b_write(Adress adr, byte b) {
         mem[adr] = b;
 }
 
-word w_read(Adress a) {
-    word w = ((word)mem[a+1]) << 8;
-    w = w | mem[a];
+word w_read(Adress adr) {
+    word w = ((word)mem[adr + 1]) << 8;
+    w = w | mem[adr];
     return w;
 }
 
 void w_write(Adress adr, word w) {
-    mem[adr] = (byte)(w & 0xFF);                  // w % 256
-    mem[adr + 1] = (byte)((w >> 8) & 0xFF);       // w / 256
-}
-
-word byte_to_word(byte b) {
-    word w;
-    if (SIGN(b, 1) == 0) {       // для положительного числа
-        w = 0;                          // 0000000000000000
-        w |= b;
-    }
-    else {                             // для отрицательного числа
-        w = ~0xFF;                     // 1111111100000000
-        w |= b;
-    }
-    return w;
+    mem[adr] = (w & 0xFF);                  // w % 256
+    mem[adr + 1] = ((w >> 8) & 0xFF);       // w / 256
 }
 
 void mem_dump(Adress start, word n) {
@@ -89,7 +75,7 @@ void print_registers() {
 }
 
 void print_flags() {
-    trace("\tN = %d\n\tZ= %d\n\tC= %d\n\n\n", flag.N, flag.Z, flag.C);
+    trace("\tN = %d\n\tZ = %d\n\tC = %d\n\n\n", flag.N, flag.Z, flag.C);
 }
 
 void test_mem() {
