@@ -154,12 +154,13 @@ int main(int argc, char * argv[]) {
     else {
         load_file(argv[1]);
     }
-
+//
 //    load_file(
-//            "/home/mariia/2сем/C/Coursework/tests/10_jsr_rts/10_jsr_rts.pdp.o"
+//            ""
 //            );
 //    do_trace = 2;
-//    run();
+
+    run();
 
     return 0;
 }
