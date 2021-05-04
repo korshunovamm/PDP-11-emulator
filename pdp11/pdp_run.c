@@ -17,12 +17,13 @@ void run() {
     extern int size_of_commands;
     P_Command PC;
 
-    mem[OSTAT] |= 128;                           // старший бит в младшем байте
     pc = 01000;
     word w;
+    mem[OSTAT] = (mem[OSTAT] >> 7) & 1;       // старший бит в младшем байте
 
     while(1) {
         w = w_read(pc);
+
         //printf("%06o : %06o ", pc, w);          // отладочная печать
         printf("%06o : ", pc);             // нормальная печать
 

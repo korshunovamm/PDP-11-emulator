@@ -7,6 +7,11 @@
 
 
 #define SIGN(w, is_byte) (is_byte ? ((w)>>7)&1 : ((w)>>15)&1 )   // вычисляю старший(знаковый) бит для слова или байта
+
+byte mem[MEMSIZE];
+word reg[8];                        // R0, R1 ... R7, R7 = pc
+char do_trace;                      // -t -T трассировка
+
 extern Flag flag;
 
 void trace(const char* format, ...) {

@@ -1,3 +1,4 @@
+#pragma once
 typedef unsigned char byte;         // 2^8 - 8 bit
 typedef unsigned short int word;    // 2^16 - 16 bit
 typedef word Adress;                // 2^16 - 64KB
@@ -45,9 +46,9 @@ typedef struct Command {
 #define MEM         3
 
 
-byte mem[MEMSIZE];
-word reg[8];                        // R0, R1 ... R7, R7 = pc
-char do_trace;                      // -t -T трассировка
+extern byte mem[MEMSIZE];
+extern word reg[8];                        // R0, R1 ... R7, R7 = pc
+extern char do_trace;                      // -t -T трассировка
 
 
 void b_write(Adress adr, byte b);
