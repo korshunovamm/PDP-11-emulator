@@ -23,7 +23,6 @@ void run() {
 
     while(1) {
         w = w_read(pc);
-        printf("\n                    PC = %06o \n", pc);
         if (do_trace == 1 || do_trace == 2)
             printf("\t\t%06o : ", pc);
 
