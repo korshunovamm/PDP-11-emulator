@@ -88,8 +88,19 @@ Argument get_mr(word w, int B) {
                 trace("%o ", res.adr);
             else
                 trace("%o(r%d) ", w_read(pc), n_reg);
-            pc += 2;
             res.space = MEM;                             // находится в памяти
+            pc += 2;
+            break;
+
+        case 7:                                           // nn - константа
+            res.adr = reg[n_reg] + w_read(pc);            // адрес в pc складывается с константой nn (сдвиг на nn)
+            res.adr = w_read(res.adr);
+            if (n_reg == 7)
+                trace("%o ", res.adr );
+            else
+                trace("%o(r%d) ", w_read(pc), n_reg);
+            res.space = MEM;                             // находится в памяти
+            pc += 2;
             break;
 
         default:

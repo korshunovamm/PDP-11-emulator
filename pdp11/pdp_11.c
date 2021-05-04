@@ -156,7 +156,7 @@ int main(int argc, char * argv[]) {
     }
 
 //    load_file(
-//            "/home/mariia/2сем/C/Coursework/tests/10_jsr_rts/10_jsr_rts.pdp.o"
+//            "/home/mariia/2сем/C/Coursework/tests/10_jsr_sum_r5/10_jsr_sum_r5.pdp.o"
 //            );
 //    do_trace = 2;
     run();

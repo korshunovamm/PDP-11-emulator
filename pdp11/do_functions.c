@@ -137,9 +137,9 @@ void do_dec(P_Command PC) {                       // Decrement
 
 void do_jsr(P_Command PC) {                       // Jump to Subroutine
     w_write(sp, reg[PC.r1]);
+    reg[PC.r1] = pc + 0;
     sp -= 2;
-    reg[PC.r1] = pc;
-    pc = dd.adr;
+    pc = dd.adr + 2;
 }
 
 void do_rts(P_Command PC) {                       // Return from Subroutine
