@@ -55,10 +55,11 @@ void w_write(Adress adr, word w) {
 }
 
 void mem_dump(Adress start, word n) {
-    printf("-------------------------mem_dump-------------------------\n");
+    printf("-----------------------------mem_dump-----------------------------\n");
     for (int i = 0; i <= n; i += 2)
         printf("%06o : %06o\n", start + i , w_read(start + i));
-    printf("-------------------------mem_dump-------------------------\n");
+    printf("-----------------------------mem_dump-----------------------------\n\n"
+           "+++++++++++++++++++++++++++++RUNNING++++++++++++++++++++++++++++++\n\n");
 }
 
 void load_file(const char * filename) {
@@ -93,7 +94,8 @@ void print_registers() {
 }
 
 void print_flags() {
-    trace("\tN = %d\n\tZ = %d\n\tC = %d\n\n\n", flag.N, flag.Z, flag.C);
+    trace("\tN = %d\n\tZ = %d\n\tC = %d\n__________________________________________________________________\n\n"
+          , flag.N, flag.Z, flag.C);
 }
 
 void test_mem() {

@@ -23,16 +23,16 @@ void run() {
 
     while(1) {
         w = w_read(pc);
-
-        //printf("%06o : %06o ", pc, w);          // отладочная печать
-        printf("%06o : ", pc);             // нормальная печать
+        if (do_trace == 1 || do_trace == 2)
+            printf("\t\t%06o : ", pc);
 
         pc += 2;
         PC = create_command(w);
 
         for (int i = 0; i < size_of_commands; i++)
             if ((commands[i].mask & w) == commands[i].opcode) {
-                printf("%s    ", commands[i].name);
+                if (do_trace == 1 || do_trace == 2)
+                    printf("%s    ", commands[i].name);
 
                 if (commands[i].param == HAS_SS) {
                     ss = get_mr(w >> 6, PC.B);
@@ -53,7 +53,8 @@ void run() {
                     //                    printf("\nxx = %o\n", xx.val);
                 }
                 commands[i].do_func(PC);
-                printf("\n");
+                if (do_trace == 1 || do_trace == 2)
+                    printf("\n");
             }
         if (do_trace == 2) {                  // -T -большая трассировка
             print_registers();

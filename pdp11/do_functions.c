@@ -33,7 +33,7 @@ void change_flag_C(P_Command PC) {
 
 void do_halt(P_Command PC) {
     PC = PC;
-    trace("\n\n------------------------THE END!!!------------------------\n");
+    trace("\n\n++++++++++++++++++++++++++++THE END!!!++++++++++++++++++++++++++++\n\n\n");
     print_registers();
     exit(0);
 }
@@ -57,6 +57,8 @@ void do_movb(P_Command PC) {                      // Move byte
     else
         b_write(dd.adr, (byte)dd.res);            // иначе в память
 
+    if (dd.adr == 0177566 || do_trace != 0)       // == OSTAT
+        printf("%c", dd.res);
     change_flag_N(PC);
     change_flag_Z(PC);
 }
