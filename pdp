@@ -1,6 +1,6 @@
 #!/bin/bash
-gcc -Wall -Wextra -o pdp.out ./pdp11/pdp_run.c ./pdp11/pdp_11.c ./pdp11/do_functions.c ./pdp11/get_functions.c
-directory="tests/"
+gcc -Wall -Wextra -g ./pdp11/*.c -o pdp.out
+
 if [ "$1" = "-t" ] || [ "$1" = "-T" ] 
 then
 	./pdp.out $1 "$2"

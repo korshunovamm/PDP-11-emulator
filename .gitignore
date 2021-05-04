@@ -4,5 +4,6 @@ drafts/
 .idea
 pdp11/.idea
 pdp.out
+vgpdp.out
 cmake-build-debug/
 .pdp.swp
