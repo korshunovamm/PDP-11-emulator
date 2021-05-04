@@ -19,7 +19,7 @@ void run() {
 
     pc = 01000;
     word w;
-    mem[OSTAT] = (mem[OSTAT] >> 7) & 1;       // старший бит в младшем байте
+    mem[OSTAT] |= 128;       // старший бит в младшем байте
 
     while(1) {
         w = w_read(pc);
