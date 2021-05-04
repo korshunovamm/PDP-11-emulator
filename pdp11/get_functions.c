@@ -7,6 +7,7 @@ Argument get_mr(word w, int B) {
     Argument res;
     int n_reg = w & 7;                                   // номер регистра
     int mode = (w >> 3) & 7;                             // номер моды
+    word nn;
 
     switch(mode) {
         case 0:                                          // R3
@@ -82,14 +83,16 @@ Argument get_mr(word w, int B) {
             break;
 
         case 6:                                           // nn - константа
-            res.adr = reg[n_reg] + w_read(pc);            // адрес в pc складывается с константой nn (сдвиг на nn)
-            res.val = w_read(res.adr);                    // читаю значение по полученному адрессу
-            if (n_reg == 7)
-                trace("%o ", res.adr);
-            else
-                trace("%o(r%d) ", w_read(pc), n_reg);
-            res.space = MEM;                             // находится в памяти
+            nn = w_read(pc);
             pc += 2;
+            res.adr = reg[n_reg] + nn;                   // адрес в pc складывается с константой nn (сдвиг на nn)
+            res.val = w_read(res.adr);                   // читаю значение по полученному адрессу
+            if (n_reg == 7)
+                printf("%o ", res.adr);
+            else
+                printf("%o(r%d) ", nn, n_reg);
+            res.space = MEM;                             // находится в памяти
+            res.adr += 2;
             break;
 
         case 7:                                           // nn - константа
