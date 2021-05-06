@@ -82,8 +82,8 @@ Argument get_mr(word w, int B) {
             res.space = MEM;                             // находится в памяти
             break;
 
-        case 6:                                           // nn - константа
-            nn = w_read(pc);
+        case 6:                                          // nn - константа
+            nn = w_read(pc);                             // слово записанное после команды
             pc += 2;
             res.adr = reg[n_reg] + nn;                   // адрес в pc складывается с константой nn (сдвиг на nn)
             res.val = w_read(res.adr);                   // читаю значение по полученному адрессу
@@ -92,7 +92,6 @@ Argument get_mr(word w, int B) {
             else
                 printf("%o(r%d) ", nn, n_reg);
             res.space = MEM;                             // находится в памяти
-            res.adr += 2;
             break;
 
         case 7:                                           // nn - константа

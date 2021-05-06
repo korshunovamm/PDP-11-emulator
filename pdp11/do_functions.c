@@ -136,16 +136,17 @@ void do_dec(P_Command PC) {                       // Decrement
 }
 
 void do_jsr(P_Command PC) {                       // Jump to Subroutine
+    word w = dd.adr;
+    sp -= 2;
     w_write(sp, reg[PC.r1]);
     reg[PC.r1] = pc;
-    sp -= 2;
-    pc = dd.adr;
+    pc = w;
 }
 
 void do_rts(P_Command PC) {                       // Return from Subroutine
     pc = reg[PC.r2];
-    sp += 2;
     reg[PC.r2] = w_read(sp);
+    sp += 2;
 }
 
 
