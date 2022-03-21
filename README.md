@@ -9,7 +9,7 @@
 
 
 *Запуск:*
-- pdp [опции] file- без valgrind
+- pdp [опции] file - без valgrind
 - vgpdp [опции] file - c valgrind
 
 
